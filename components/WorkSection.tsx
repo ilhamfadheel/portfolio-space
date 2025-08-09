@@ -204,9 +204,17 @@ export function WorkSection() {
                       )}
                       {project.live && (
                         <Button size="sm" asChild className="hover-glow">
-                          <a href={project.live} target="_blank" rel="noopener noreferrer">
-                            <ExternalLink className="h-4 w-4 mr-2" />
-                            {project.live}
+                          <a 
+                            href={project.live} 
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                            className="truncate"
+                            title={project.live}
+                          >
+                            <ExternalLink className="h-4 w-4 mr-2 flex-shrink-0" />
+                            <span className="truncate">
+                              {project.live.replace(/^https?:\/\//, '').split('/')[0]}
+                            </span>
                           </a>
                         </Button>
                       )}

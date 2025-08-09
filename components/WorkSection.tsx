@@ -25,7 +25,7 @@ export function WorkSection() {
         'Tailwind CSS',
         'LangChain',
       ],
-      image: '/levian-ai-platform.png',
+      image: '/levian-ai-platform.avif',
       live: 'https://levian.ai',
     },
     {
@@ -46,7 +46,7 @@ export function WorkSection() {
         'Ant Design',
         'Tailwind CSS',
       ],
-      image: '/astra-international.jpg',
+      image: '/astra-international.avif',
     },
     {
       title: 'SmartCheck Kiosk App',
@@ -57,7 +57,7 @@ export function WorkSection() {
       description:
         'Developed a SmartCheck kiosk app for hotel guests to easily check in/out, with admin panel for hotel staff. Built mobile app with React Native and web app & admin panel with ReactJS, integrated Adyen payment gateway.',
       technologies: ['React Native', 'ReactJS', 'Redux Toolkit', 'Material UI', 'Adyen', 'Jest'],
-      image: '/liverton-smartcheck-app.png',
+      image: '/liverton-smartcheck-app.avif',
       live: 'https://smartstay.liverton.com/',
     },
     {
@@ -77,7 +77,7 @@ export function WorkSection() {
         'Selenium',
         'Jest',
       ],
-      image: '/mitrais-carrot.jpg',
+      image: '/mitrais-carrot.avif',
       github: 'https://github.com/Mitrais-Carrot-2/carrot-frontend',
     },
     {
@@ -88,7 +88,7 @@ export function WorkSection() {
       description:
         'Checked data integrity and validity in data warehouse and data mart stored in Apache Hadoop using Talend Open Studio and Hue SQL for Mayapada Bank. Developed ETL jobs for Anti Money Laundering system and further analytics. Produced comprehensive documentation for each validated DWH job and SQL query.',
       technologies: ['Talend Open Studio', 'Apache Hadoop', 'Hue SQL', 'ETL'],
-      image: '/multipolar-group.webp',
+      image: '/multipolar-group.avif',
     },
     {
       title: 'Web3 Risk Score Generator',
@@ -97,7 +97,7 @@ export function WorkSection() {
       description:
         'Final project for my Encode Club AI Bootcamp. Developed an AI-powered tool to generate risk scores for Web3 projects based on their Twitter presence. Helps crypto investors make informed decisions through AI-driven risk analysis with real-time data extraction.',
       technologies: ['Next.js', 'OpenAI API', 'Puppeteer', 'TypeScript', 'Tailwind CSS'],
-      image: '/web3-risk-generator.png',
+      image: '/web3-risk-generator.avif',
       github: 'https://github.com/ilhamfadheel/AI-twitter-risk-score-generator',
       live: 'https://www.encode.club/ai-gpt-bootcamp',
     },
@@ -115,7 +115,7 @@ export function WorkSection() {
         'Cyclic',
         'Google ReCaptcha',
       ],
-      image: '/discord-wordpress-bridge.png',
+      image: '/discord-wordpress-bridge.avif',
     },
   ];
 

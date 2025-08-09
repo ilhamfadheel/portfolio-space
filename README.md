@@ -2,6 +2,8 @@
 
 A modern, interactive portfolio website built with Next.js, TypeScript, and Tailwind CSS. This portfolio showcases my work, skills, and experience with smooth animations and a clean, responsive design.
 
+![portfolio-space](./landing-page.png)
+
 ## 🚀 Features
 
 - **Modern UI/UX** with smooth animations and transitions

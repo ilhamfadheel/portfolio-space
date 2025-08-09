@@ -13,6 +13,15 @@ export const metadata: Metadata = {
   description: 'I craft exceptional digital experiences with modern technologies',
   keywords: ['software engineer', 'full-stack developer', 'react', 'nextjs', 'typescript'],
   generator: 'Next.js',
+  icons: {
+    icon: '/logo.png',
+    shortcut: '/logo.png',
+    apple: '/logo.png',
+    other: {
+      rel: 'apple-touch-icon-precomposed',
+      url: '/logo.png',
+    },
+  },
   openGraph: {
     images: [
       {

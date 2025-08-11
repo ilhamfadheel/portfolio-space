@@ -14,13 +14,16 @@ export const metadata: Metadata = {
   keywords: ['software engineer', 'full-stack developer', 'react', 'nextjs', 'typescript'],
   generator: 'Next.js',
   icons: {
-    icon: '/logo.png',
+    icon: [
+      { url: '/logo.png', type: 'image/png' },
+      { url: '/logo.png', sizes: '32x32', type: 'image/png' },
+      { url: '/logo.png', sizes: '16x16', type: 'image/png' },
+    ],
     shortcut: '/logo.png',
-    apple: '/logo.png',
-    other: {
-      rel: 'apple-touch-icon-precomposed',
-      url: '/logo.png',
-    },
+    apple: [
+      { url: '/logo.png' },
+      { url: '/logo.png', sizes: '180x180', type: 'image/png' },
+    ],
   },
   openGraph: {
     images: [

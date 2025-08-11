@@ -1,7 +1,8 @@
 'use client';
 
-import { useState } from 'react';
-import { useForm, ValidationError } from '@formspree/react';
+import { useForm as useFormspreeForm, ValidationError as FormspreeValidationError } from '@formspree/react';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -9,28 +10,37 @@ import { Textarea } from '@/components/ui/textarea';
 import { Mail, MapPin, Send, Loader2, CheckCircle, Calendar } from 'lucide-react';
 import GradientText from './TextAnimations/GradientText';
 import CurvedLoop from './TextAnimations/CurvedLoop';
+import { contactFormSchema, type ContactFormValues } from '@/lib/validations/contact-form';
 
 export function ContactSection() {
-  const [state, handleSubmit] = useForm(process.env.NEXT_PUBLIC_FORMSPREE_ID as string);
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    subject: '',
-    message: '',
+  const [formState, handleFormspreeSubmit] = useFormspreeForm(process.env.NEXT_PUBLIC_FORMSPREE_ID as string);
+  
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors, isSubmitting },
+  } = useForm<ContactFormValues>({
+    resolver: zodResolver(contactFormSchema),
+    defaultValues: {
+      name: '',
+      email: '',
+      subject: '',
+      message: '',
+    },
   });
 
-  const handleFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    // Create form data object that Formspree expects
-    const formData = new FormData(event.currentTarget);
-    handleSubmit(formData);
-  };
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData((prev) => ({
-      ...prev,
-      [e.target.name]: e.target.value,
-    }));
+  const onSubmit = async (data: ContactFormValues) => {
+    try {
+      const formData = new FormData();
+      Object.entries(data).forEach(([key, value]) => {
+        formData.append(key, value);
+      });
+      await handleFormspreeSubmit(formData);
+      reset();
+    } catch (error) {
+      console.error('Form submission error:', error);
+    }
   };
 
   return (
@@ -117,7 +127,7 @@ export function ContactSection() {
               <p className="text-gray-400 text-sm">I&apos;ll get back to you as soon as possible</p>
             </CardHeader>
             <CardContent>
-              {state.succeeded ? (
+              {formState.succeeded ? (
                 <div className="text-center py-12 px-4">
                   <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-green-900/20 mb-6">
                     <CheckCircle className="h-12 w-12 text-green-500" />
@@ -128,7 +138,7 @@ export function ContactSection() {
                   </p>
                 </div>
               ) : (
-                <form onSubmit={handleFormSubmit} className="space-y-6">
+                <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
                   <div className="grid md:grid-cols-2 gap-4">
                     <div className="space-y-1">
                       <label htmlFor="name" className="text-sm font-medium text-gray-300">
@@ -136,12 +146,14 @@ export function ContactSection() {
                       </label>
                       <Input
                         id="name"
-                        name="name"
-                        value={formData.name}
-                        onChange={handleChange}
-                        className="bg-gray-800/50 border-gray-700 text-white placeholder-gray-500 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
-                        required
+                        className={`bg-gray-800/50 border-gray-700 text-white placeholder-gray-500 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all ${
+                          errors.name ? 'border-red-500' : ''
+                        }`}
+                        {...register('name')}
                       />
+                      {errors.name && (
+                        <p className="text-red-400 text-xs mt-1">{errors.name.message}</p>
+                      )}
                     </div>
                     <div className="space-y-1">
                       <label htmlFor="email" className="text-sm font-medium text-gray-300">
@@ -149,19 +161,22 @@ export function ContactSection() {
                       </label>
                       <Input
                         id="email"
-                        name="email"
                         type="email"
-                        value={formData.email}
-                        onChange={handleChange}
-                        className="bg-gray-800/50 border-gray-700 text-white placeholder-gray-500 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
-                        required
+                        className={`bg-gray-800/50 border-gray-700 text-white placeholder-gray-500 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all ${
+                          errors.email ? 'border-red-500' : ''
+                        }`}
+                        {...register('email')}
                       />
-                      <ValidationError
-                        prefix="Email"
-                        field="email"
-                        errors={state.errors}
-                        className="text-red-400 text-xs mt-1"
-                      />
+                      {errors.email ? (
+                        <p className="text-red-400 text-xs mt-1">{errors.email.message}</p>
+                      ) : (
+                        <FormspreeValidationError
+                          prefix="Email"
+                          field="email"
+                          errors={formState.errors}
+                          className="text-red-400 text-xs mt-1"
+                        />
+                      )}
                     </div>
                   </div>
 
@@ -171,12 +186,14 @@ export function ContactSection() {
                     </label>
                     <Input
                       id="subject"
-                      name="subject"
-                      value={formData.subject}
-                      onChange={handleChange}
-                      className="bg-gray-800/50 border-gray-700 text-white placeholder-gray-500 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
-                      required
+                      className={`bg-gray-800/50 border-gray-700 text-white placeholder-gray-500 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all ${
+                        errors.subject ? 'border-red-500' : ''
+                      }`}
+                      {...register('subject')}
                     />
+                    {errors.subject && (
+                      <p className="text-red-400 text-xs mt-1">{errors.subject.message}</p>
+                    )}
                   </div>
 
                   <div className="space-y-1">
@@ -185,28 +202,31 @@ export function ContactSection() {
                     </label>
                     <Textarea
                       id="message"
-                      name="message"
                       rows={5}
-                      value={formData.message}
-                      onChange={handleChange}
-                      className="bg-gray-800/50 border-gray-700 text-white placeholder-gray-500 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all resize-none"
-                      required
+                      className={`bg-gray-800/50 border-gray-700 text-white placeholder-gray-500 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all resize-none ${
+                        errors.message ? 'border-red-500' : ''
+                      }`}
+                      {...register('message')}
                     />
-                    <ValidationError
-                      prefix="Message"
-                      field="message"
-                      errors={state.errors}
-                      className="text-red-400 text-xs mt-1"
-                    />
+                    {errors.message ? (
+                      <p className="text-red-400 text-xs mt-1">{errors.message.message}</p>
+                    ) : (
+                      <FormspreeValidationError
+                        prefix="Message"
+                        field="message"
+                        errors={formState.errors}
+                        className="text-red-400 text-xs mt-1"
+                      />
+                    )}
                   </div>
 
                   <div className="space-y-4 pt-2">
                     <Button
                       type="submit"
                       className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-500 hover:to-blue-600 text-white hover-glow flex items-center justify-center py-6 text-base font-medium transition-all duration-300 transform hover:-translate-y-0.5 border border-gray-700"
-                      disabled={state.submitting}
+                      disabled={isSubmitting || formState.submitting}
                     >
-                      {state.submitting ? (
+                      {isSubmitting || formState.submitting ? (
                         <>
                           <Loader2 className="size-5 animate-spin" />
                           Sending...
@@ -235,7 +255,7 @@ export function ContactSection() {
                       </span>
                     </a>
 
-                    {state.errors && (
+                    {formState.errors && (
                       <p className="text-red-400 text-sm text-center mt-2">
                         There was an error submitting the form. Please try again.
                       </p>

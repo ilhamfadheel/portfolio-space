@@ -4,7 +4,8 @@ import './globals.css';
 import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
 import { Analytics } from '@vercel/analytics/react';
-import { GoogleTagManager } from '@next/third-parties/google'
+import { GoogleTagManager } from '@next/third-parties/google';
+import SplashCursor from '../components/Animations/SplashCursor';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -20,10 +21,7 @@ export const metadata: Metadata = {
       { url: '/logo.png', sizes: '16x16', type: 'image/png' },
     ],
     shortcut: '/logo.png',
-    apple: [
-      { url: '/logo.png' },
-      { url: '/logo.png', sizes: '180x180', type: 'image/png' },
-    ],
+    apple: [{ url: '/logo.png' }, { url: '/logo.png', sizes: '180x180', type: 'image/png' }],
   },
   openGraph: {
     images: [
@@ -45,6 +43,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className="scroll-smooth">
       <body className={`${inter.className} antialiased`}>
+        <SplashCursor />
         <Navigation />
         {children}
         <Footer />

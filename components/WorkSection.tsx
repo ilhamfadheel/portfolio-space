@@ -4,6 +4,7 @@ import { ExternalLink, Github } from 'lucide-react';
 import Image from 'next/image';
 import DarkVeil from './Backgrounds/DarkVeil';
 import GradientText from './TextAnimations/GradientText';
+import { Fade } from 'react-awesome-reveal';
 
 export function WorkSection() {
   const projects = [
@@ -148,81 +149,83 @@ export function WorkSection() {
 
         <div className="space-y-16">
           {projects.map((project, index) => (
-            <Card key={index} className="glass-effect border-gray-800 overflow-hidden hover-glow">
-              <div
-                className={`grid lg:grid-cols-2 gap-0 ${index % 2 === 1 ? 'lg:grid-flow-col-dense' : ''}`}
-              >
+            <Fade key={index} direction={index % 2 === 0 ? 'left' : 'right'} triggerOnce>
+              <Card key={index} className="glass-effect border-gray-800 overflow-hidden hover-glow">
                 <div
-                  className={`relative h-64 lg:h-auto ${index % 2 === 1 ? 'lg:col-start-2' : ''}`}
+                  className={`grid lg:grid-cols-2 gap-0 ${index % 2 === 1 ? 'lg:grid-flow-col-dense' : ''}`}
                 >
-                  <Image
-                    src={
-                      project.image ||
-                      '/placeholder.svg?height=400&width=600&query=' +
-                        encodeURIComponent(project.title + ' dashboard interface')
-                    }
-                    alt={project.title}
-                    fill
-                    className="object-cover"
-                  />
-                </div>
-                <div className={`bg-black p-8 ${index % 2 === 1 ? 'lg:col-start-1' : ''}`}>
-                  <CardHeader className="p-0 mb-4">
-                    <div className="flex items-start justify-between mb-2">
-                      <div>
-                        <CardTitle className="text-2xl mb-2">{project.title}</CardTitle>
-                        <p className="text-blue-400 font-medium">{project.company}</p>
-                        <p className="text-gray-400 text-sm">{project.role}</p>
-                        <p className="text-gray-500 text-xs">
-                          {project.period} {project.location && `• ${project.location}`}
-                        </p>
+                  <div
+                    className={`relative h-64 lg:h-auto ${index % 2 === 1 ? 'lg:col-start-2' : ''}`}
+                  >
+                    <Image
+                      src={
+                        project.image ||
+                        '/placeholder.svg?height=400&width=600&query=' +
+                          encodeURIComponent(project.title + ' dashboard interface')
+                      }
+                      alt={project.title}
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
+                  <div className={`bg-black p-8 ${index % 2 === 1 ? 'lg:col-start-1' : ''}`}>
+                    <CardHeader className="p-0 mb-4">
+                      <div className="flex items-start justify-between mb-2">
+                        <div>
+                          <CardTitle className="text-2xl mb-2">{project.title}</CardTitle>
+                          <p className="text-blue-400 font-medium">{project.company}</p>
+                          <p className="text-gray-400 text-sm">{project.role}</p>
+                          <p className="text-gray-500 text-xs">
+                            {project.period} {project.location && `• ${project.location}`}
+                          </p>
+                        </div>
                       </div>
-                    </div>
-                  </CardHeader>
-                  <CardContent className="p-0">
-                    <p className="text-gray-300 mb-6 leading-relaxed">{project.description}</p>
+                    </CardHeader>
+                    <CardContent className="p-0">
+                      <p className="text-gray-300 mb-6 leading-relaxed">{project.description}</p>
 
-                    <div className="flex flex-wrap gap-2 mb-6">
-                      {project.technologies.map((tech) => (
-                        <span
-                          key={tech}
-                          className="px-3 py-1 bg-gray-800 text-gray-300 rounded-full text-xs hover:bg-gray-700 transition-colors duration-200"
-                        >
-                          {tech}
-                        </span>
-                      ))}
-                    </div>
-
-                    <div className="flex gap-4">
-                      {project.github && (
-                        <Button variant="outline" size="sm" asChild className="hover-glow">
-                          <a href={project.github} target="_blank" rel="noopener noreferrer">
-                            <Github className="h-4 w-4 mr-2" />
-                            Code
-                          </a>
-                        </Button>
-                      )}
-                      {project.live && (
-                        <Button size="sm" asChild className="hover-glow">
-                          <a 
-                            href={project.live} 
-                            target="_blank" 
-                            rel="noopener noreferrer"
-                            className="truncate"
-                            title={project.live}
+                      <div className="flex flex-wrap gap-2 mb-6">
+                        {project.technologies.map((tech) => (
+                          <span
+                            key={tech}
+                            className="px-3 py-1 bg-gray-800 text-gray-300 rounded-full text-xs hover:bg-gray-700 transition-colors duration-200"
                           >
-                            <ExternalLink className="h-4 w-4 mr-2 flex-shrink-0" />
-                            <span className="truncate">
-                              {project.live.replace(/^https?:\/\//, '').split('/')[0]}
-                            </span>
-                          </a>
-                        </Button>
-                      )}
-                    </div>
-                  </CardContent>
+                            {tech}
+                          </span>
+                        ))}
+                      </div>
+
+                      <div className="flex gap-4">
+                        {project.github && (
+                          <Button variant="outline" size="sm" asChild className="hover-glow">
+                            <a href={project.github} target="_blank" rel="noopener noreferrer">
+                              <Github className="h-4 w-4 mr-2" />
+                              Code
+                            </a>
+                          </Button>
+                        )}
+                        {project.live && (
+                          <Button size="sm" asChild className="hover-glow">
+                            <a
+                              href={project.live}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="truncate"
+                              title={project.live}
+                            >
+                              <ExternalLink className="h-4 w-4 mr-2 flex-shrink-0" />
+                              <span className="truncate">
+                                {project.live.replace(/^https?:\/\//, '').split('/')[0]}
+                              </span>
+                            </a>
+                          </Button>
+                        )}
+                      </div>
+                    </CardContent>
+                  </div>
                 </div>
-              </div>
-            </Card>
+              </Card>
+            </Fade>
           ))}
         </div>
       </div>

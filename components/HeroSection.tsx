@@ -68,32 +68,35 @@ export function HeroSection() {
         </div>
 
         <div className="flex justify-center space-x-6 mb-12">
-          <a
+          <Link
             href="https://github.com/ilhamfadheel"
             className="text-gray-400 hover:text-white transition-colors duration-200 hover-glow p-2 rounded-full"
             target="_blank"
             rel="noopener noreferrer"
+            aria-label="GitHub"
           >
             <Github className="h-6 w-6" />
-          </a>
-          <a
+          </Link>
+          <Link
             href="https://linkedin.com/in/ilhamfadheel"
             className="text-gray-400 hover:text-white transition-colors duration-200 hover-glow p-2 rounded-full"
             target="_blank"
             rel="noopener noreferrer"
+            aria-label="LinkedIn"
           >
             <Linkedin className="h-6 w-6" />
-          </a>
-          <a
+          </Link>
+          <Link
             href="mailto:ilham@ilhamfadhil.com"
             className="text-gray-400 hover:text-white transition-colors duration-200 hover-glow p-2 rounded-full"
+            aria-label="Email"
           >
             <Mail className="h-6 w-6" />
-          </a>
+          </Link>
         </div>
 
         <div className="animate-bounce">
-          <Link href="/#about" className="block">
+          <Link href="/#about" className="block" aria-label="Scroll down">
             <ChevronDown className="h-8 w-8 mx-auto text-gray-400 hover:cursor-pointer hover:text-white transition-colors duration-200 hover-glow" />
           </Link>
         </div>

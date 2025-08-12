@@ -56,6 +56,7 @@ export function Navigation() {
             size="icon"
             className="md:hidden"
             onClick={() => setIsOpen(!isOpen)}
+            aria-label="Toggle navigation"
           >
             {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </Button>

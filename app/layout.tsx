@@ -6,6 +6,7 @@ import { Footer } from '@/components/Footer';
 import { Analytics } from '@vercel/analytics/react';
 import { GoogleTagManager } from '@next/third-parties/google';
 import SplashCursor from '../components/Animations/SplashCursor';
+import { DynamicFavicon } from '@/components/DynamicFavicon';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -16,12 +17,15 @@ export const metadata: Metadata = {
   generator: 'Next.js',
   icons: {
     icon: [
-      { url: '/logo.png', type: 'image/png' },
-      { url: '/logo.png', sizes: '32x32', type: 'image/png' },
-      { url: '/logo.png', sizes: '16x16', type: 'image/png' },
+      { url: '/logo-white.png', type: 'image/png' },
+      { url: '/logo-white.png', sizes: '32x32', type: 'image/png' },
+      { url: '/logo-white.png', sizes: '16x16', type: 'image/png' },
     ],
-    shortcut: '/logo.png',
-    apple: [{ url: '/logo.png' }, { url: '/logo.png', sizes: '180x180', type: 'image/png' }],
+    shortcut: '/logo-white.png',
+    apple: [
+      { url: '/logo-white.png' },
+      { url: '/logo-white.png', sizes: '180x180', type: 'image/png' },
+    ],
   },
   openGraph: {
     images: [
@@ -43,6 +47,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className="scroll-smooth">
       <body className={`${inter.className} antialiased`}>
+        <DynamicFavicon />
         <SplashCursor />
         <Navigation />
         {children}

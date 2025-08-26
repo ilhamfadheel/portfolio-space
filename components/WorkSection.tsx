@@ -47,7 +47,7 @@ export function WorkSection() {
         'Ant Design',
         'Tailwind CSS',
       ],
-      image: '/astra-international.avif',
+      image: '/astra-international.webp',
     },
     {
       title: 'SmartCheck Kiosk App',
